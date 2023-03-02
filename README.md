@@ -11,7 +11,7 @@
 * Spring Boot
 * Uni-App (Vue2.0)
 
-#### 使用说明
+#### 更新日志
 
 - 0.0.0: 加载[Spring模板](https://github.com/Aiden-L/Spring-Backend-Demo)
 
