@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xzr.webdemo.mapper.UserMapper">
+    <select id="getUser" resultType="com.xzr.webdemo.bean.User">
+        select * from yespaper.user where username=#{username}
+    </select>
+    <select id="getTeachers" resultType="com.xzr.webdemo.bean.User">
+        SELECT * FROM yespaper.user where type='reviewer'
+    </select>
+    <insert id="createUser">
+        INSERT INTO `yespaper`.`user` (`username`, `password`, `signature`, `type`, `email`, `university`, `field`)
+        VALUES (#{username}, #{password}, null, #{type}, #{email}, #{university}, #{field});
+    </insert>
+    <update id="updateUser" parameterType="com.xzr.webdemo.bean.User">
+        UPDATE `yespaper`.`user`
+        SET `signature` = #{signature},
+            `email` = #{email},
+            `university` = #{university},
+            `field` = #{field},
+            `birthdate` = #{birthdate}
+        WHERE (`id` = #{id});
+    </update>
+    <update id="updatePass" parameterType="com.xzr.webdemo.bean.User">
+        UPDATE `yespaper`.`user`
+        SET `password` = #{password}
+        WHERE (`id` = #{id});
+    </update>
+</mapper>
