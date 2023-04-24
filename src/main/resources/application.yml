@@ -1,0 +1,49 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: ZhouJi
+  datasource: # 这里没有用druid的连接池，而是apache.common
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/yespaper?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 1234
+    druid:
+      aop-patterns: com.xzr.main.*
+      filters: stat,wall
+      stat-view-servlet:
+        enabled: true
+        login-username: admin # 访问监控页面时登录的账号
+        login-password: admin # 访问监控页面时登录的密码
+        resetEnable: false # 不允许重置数据（在页面的重置按钮）
+      web-stat-filter:
+        enabled: true
+        urlPattern: /* # 映射地址，即统计指定地址的web请求
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*' # 不计入统计的web请求
+      filter:
+        stat:
+          slow-sql-millis: 1000
+          logSlowSql: true
+          enabled: true
+        wall:
+          enabled: true # 开启SQL防火墙
+          config:
+            drop-table-allow: false # 不允许删除数据表
+  main:
+    banner-mode: off
+
+mybatis-plus:
+  type-aliases-package: com.xzr.webdemo.entity # MP扫描实体类路径
+  configuration:
+    # 驼峰命名法，用来映射数据库表和实体类：address_book-->AddressBook
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    banner: false # springboot的banner输出停止
+    db-config:
+      id-type: ASSIGN_ID # 设置MP通过雪花算法生成ID
+  mapper-locations: classpath:mybatis/mapper/*.xml # xml和java相对路径不同时使用
+
+logging:
+  level:
+    com.zxr: debug
