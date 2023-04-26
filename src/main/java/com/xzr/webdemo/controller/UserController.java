@@ -10,12 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-public class UserMainController {
+public class UserController {
     @Autowired
     UserService userService;
 
+    // TODO：① /login：返回token，将token存在前端的header("authorization")中，每次请求带回来
+
     /**
      * To main page
+     *
      * @return index.html
      */
     @GetMapping(value = {"/", "/index"})
